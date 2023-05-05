@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  StatusBar,
+  Platform,
+} from "react-native";
 
 export default function Header() {
   return (
@@ -11,13 +18,14 @@ export default function Header() {
 }
 const styles = StyleSheet.create({
   safeArea: {
-    padding: 5,
-    backgroundColor: "#ddd",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: "#2F8886",
   },
   text: {
     padding: 2,
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 24,
+    color: "white",
   },
 });

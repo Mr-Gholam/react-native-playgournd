@@ -1,5 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { useState } from "react";
 import Header from "./components/header";
 import Form from "./components/form";
@@ -22,6 +30,12 @@ export default function App() {
     });
   }
   function addItem(text: string) {
+    if (text.length < 5) {
+      Alert.alert("There is a problem", "Todo must be at least 5 chars long", [
+        { text: "I got it", onPress: () => console.log("btn pressed") },
+      ]);
+      return;
+    }
     setTodos((prevTodos) => {
       return [
         {
@@ -32,28 +46,33 @@ export default function App() {
       ];
     });
   }
+  function dismiss() {
+    Keyboard.dismiss();
+  }
 
   return (
-    <>
-      <Header />
-      <Form addItem={addItem} />
-      <View>
-        <FlatList
-          data={Todos}
-          renderItem={({ item }) => (
-            <TodoItem item={item} removeItem={removeItem} />
-          )}
-        />
+    <TouchableWithoutFeedback onPress={() => dismiss()}>
+      <View style={styles.container}>
+        <Header />
+        <Form addItem={addItem} />
+        <View style={styles.list}>
+          <FlatList
+            data={Todos}
+            renderItem={({ item }) => (
+              <TodoItem item={item} removeItem={removeItem} />
+            )}
+          />
+        </View>
       </View>
-    </>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  list: {
+    flex: 1,
   },
 });

@@ -9,6 +9,7 @@ export default function Form(props: { addItem: (arg0: string) => void }) {
 
   function addNewTodo() {
     props.addItem(item);
+    setItem("");
   }
 
   return (
@@ -18,6 +19,7 @@ export default function Form(props: { addItem: (arg0: string) => void }) {
         placeholder="Add todo .."
         keyboardType="default"
         onChangeText={inputChanged}
+        value={item}
       />
       <Button title="Add todo" color={"#74aebe"} onPress={addNewTodo} />
     </View>
@@ -26,7 +28,7 @@ export default function Form(props: { addItem: (arg0: string) => void }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 5,
+    marginHorizontal: 20,
   },
   form: {
     marginVertical: 10,
@@ -35,6 +37,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     fontSize: 16,
-    borderStyle: "dashed",
+    // borderStyle: "dashed",
   },
 });
